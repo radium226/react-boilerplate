@@ -5,8 +5,15 @@ var notifier = require('node-notifier');
 var path = require('path');
 var common = require('./common');
 
+var mkdirp = require('mkdirp')
+
+gulp.task('make-directories', function(callback) {
+  mkdirp('dist/public/scripts');
+  callback();
+})
+
 gulp.task('build', function(callback) {
-  runSequence('clean', ['bundle', 'copy'], function() {
+  runSequence('clean', 'make-directories', ['bundle', 'copy'], function() {
     common.notify('Build is completed! ');
     callback();
   });

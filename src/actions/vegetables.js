@@ -3,20 +3,20 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import { withProgress } from './progress'
 
-export function __fetchFruits() {
+export function __fetchVegetables() {
   const deferred = Promise.pending();
   $.ajax({
-    url: '/api/v1/fruits',
+    url: '/api/v1/vegetables',
     success: (fruits) => { deferred.resolve(fruits); },
   });
   return deferred.promise;
 }
 
-export function fetchFruits() {
+export function fetchVegetables() {
   return withProgress(dispatch => ({
-    type: 'FETCH_FRUITS',
+    type: 'FETCH_VEGETABLES',
     payload: {
-      promise: __fetchFruits(),
+      promise: __fetchVegetables(),
     }
   }));
 };

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Progress from '../components/Progress';
 
 class Fruits extends Component {
 
@@ -18,6 +19,7 @@ class Fruits extends Component {
   render() {
     return (
       <div>
+        <Progress />
         <h1><FormattedMessage id="fruits.title" /></h1>
         { this.props.children }
       </div>

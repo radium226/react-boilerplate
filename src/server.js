@@ -17,6 +17,7 @@ const routes = createRoutes();
 const history = createHistory(true);
 const store = createStore();
 const initialState = store.getState();
+console.log(initialState);
 
 app.use(express.static('dist/public'));
 
@@ -26,6 +27,14 @@ const renderer = new Renderer({
   store,
   initialState,
   messages,
+});
+
+app.get('/api/v1/fruits', (request, response) => {
+  setTimeout(() => response.json(['Apple', 'Tomato']), 2000);
+});
+
+app.get('/api/v1/vegetables', (request, response) => {
+  setTimeout(() => response.json(['Potato', 'BANANANANANAAA!!!']), 10000);
 });
 
 app.use((request, response, next) => {

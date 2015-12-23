@@ -8,7 +8,8 @@
     "express"
   ],
   "clientOnlyDependencies": [
-    "jquery"
+    "jquery",
+    "nprogress"
   ],
   "devDependencies": {
     "babel": "latest",
@@ -26,6 +27,7 @@
     "browserify": "latest",
     "eslint-config-airbnb": "^2.1.1",
     "eslint-plugin-react": "^3.12.0",
+    "exorcist": "^0.4.0",
     "globby": "latest",
     "gulp": "latest",
     "gulp-callback": "0.0.3",
@@ -39,6 +41,7 @@
     "gulp-util": "latest",
     "lodash": "latest",
     "merge-stream": "latest",
+    "mkdirp": "^0.5.1",
     "node-notifier": "^4.4.0",
     "require-dir": "latest",
     "resolve": "latest",
@@ -47,6 +50,7 @@
     "tsify": "latest",
     "vinyl-buffer": "latest",
     "vinyl-source-stream": "latest",
+    "vinyl-transform": "^1.0.0",
     "watchify": "latest"
   },
   "dependencies": {
@@ -58,14 +62,17 @@
     "html": "0.0.10",
     "intl-messageformat": "latest",
     "intl-relativeformat": "latest",
-    "jquery": "latest",
+    "jquery": "^2.1.4",
     "material-ui": "latest",
     "moment": "latest",
     "node-getopt": "^0.2.3",
+    "nprogress": "^0.2.0",
     "process": "^0.11.2",
     "react": "latest",
     "react-dom": "latest",
     "react-intl": "2.0.0-beta-2",
+    "react-mixin": "^3.0.3",
+    "react-nprogress": "^0.1.6",
     "react-redux": "latest",
     "react-router": "latest",
     "react-tap-event-plugin": "0.x.x",
@@ -73,6 +80,8 @@
     "redux-devtools": "latest",
     "redux-devtools-dock-monitor": "latest",
     "redux-devtools-log-monitor": "latest",
-    "redux-router": "latest"
+    "redux-logger": "^2.3.1",
+    "redux-router": "latest",
+    "redux-thunk": "^1.0.2"
   }
 }

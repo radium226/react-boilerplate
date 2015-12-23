@@ -30,7 +30,7 @@ function handleErrors() {
 gulp.task('watch:client.js', function() {
 
   // Find every JavaScript and TypeScript sources
-	var entries = globby(['src/**/*.js', '!src/server.js']);
+	var entries = globby(['src/**/*.js', '!src/server.js', '!src/server/**/*.js', '!src/render.js']);
 
   // create the Browserify instance.
   var bundler = common.createBundler({
@@ -95,7 +95,7 @@ gulp.task('watch', ['watch:client.js', 'watch:server.js'], function() {
 gulp.task('watch:server.js', function() {
 
   // Find every JavaScript and TypeScript sources
-	var entries = globby(['src/**/*.js', '!src/client.js']);
+	var entries = globby(['src/**/*.js', '!src/client.js', '!src/render.js']);
 
   // create the Browserify instance.
   var bundler = common.createBundler({

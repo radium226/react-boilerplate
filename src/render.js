@@ -50,7 +50,7 @@ const renderer = new Renderer({
   messages,
 });
 
-const promise = renderer.render(path)
+/*const promise = renderer.render(path)
   .then(result => {
     if (result.content) {
       writeFile(file, result.content);
@@ -62,5 +62,5 @@ const promise = renderer.render(path)
     return ExitCode.FAILURE;
   });
 const exitCode =  promise.return();
-console.log('exitCode =  ' + exitCode);
+console.log('exitCode =  ' + exitCode);*/
 //process.exit(exitCode);

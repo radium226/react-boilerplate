@@ -16,12 +16,13 @@ class Html extends Component {
         <head>
           <meta charSet="utf-8" />
           <title>Radium</title>
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" />
         </head>
         <body>
           <div id="client" dangerouslySetInnerHTML={{ __html: this.props.body }} />
           <script dangerouslySetInnerHTML={{ __html: 'window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n window.__HISTORY_TYPE__ = \'' + historyStrategy + '\'; ' }} />
-          <script src="scripts/vendor.js" />
-          <script src="scripts/client.js" />
+          <script src="/scripts/vendor.js" />
+          <script src="/scripts/client.js" />
         </body>
       </html>
     );

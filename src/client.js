@@ -8,11 +8,16 @@ import { Router } from 'react-router';
 import { Provider as StoreProvider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import messages from './messages.js';
+import NProgress from 'react-nprogress';
 
 $(document).ready(() => {
+
   const element = $('#client').get(0);
 
   const initialState = window.__INITIAL_STATE__;
+
+  console.log(initialState);
+
   const historyStrategy = window.__HISTORY_TYPE__;
 
   const routes = createRoutes();

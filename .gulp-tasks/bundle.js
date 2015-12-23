@@ -12,6 +12,7 @@ var through = require('through2');
 var globby = require('globby').sync;
 var runSequence = require('run-sequence');
 var buffer = require('vinyl-buffer');
+var transform = require('vinyl-transform');
 
 // Browserify related dependencies
 var resolve = require('resolve').sync;
@@ -19,12 +20,17 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var watchify = require('watchify');
 var browserify = require('browserify');
+var exorcist = require('exorcist');
 
 // Include common stuff
 var common = require('./common.js');
 
+//var mkdirp = require('mkdirp');
+
 // Build client.js file
 gulp.task('bundle:client.js', function() {
+  //mkdirp('dist/public/scripts'); // TODO: Remove that!
+
   var stream = through();
 	stream
 		.pipe(source('client.js'))
@@ -39,7 +45,8 @@ gulp.task('bundle:client.js', function() {
     entries: entries,
     cache: {},
     packageCache: {},
-    fullPaths: true
+    fullPaths: true,
+    debug: true
   }, false);
 
   // Exclude every client vendor depdendencies
@@ -49,6 +56,7 @@ gulp.task('bundle:client.js', function() {
 
   // Bundler everything
 	bundler.bundle()
+    .pipe(exorcist('dist/public/scripts/client.js.map'))
     .pipe(stream);
 
 	return stream;
