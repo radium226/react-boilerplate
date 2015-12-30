@@ -5,7 +5,7 @@ import NProgress from 'nprogress';
 class Progress extends Component {
 
   static propTypes = {
-    progressing: PropTypes.bool,
+    progressing: PropTypes.number,
   };
 
   render() {

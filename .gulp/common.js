@@ -29,7 +29,8 @@ function listClientDependencies() {
   var packageManifest = require('../package.json');
   var allDependencies = Object.keys(packageManifest.dependencies);
   var serverOnlyDependencies = packageManifest.serverOnlyDependencies;
-  var clientDependencies = _.difference(allDependencies, serverOnlyDependencies);
+  var clientOnlyDependencies = packageManifest.clientOnlyDependencies;
+  var clientDependencies = _.compact(_.difference(allDependencies, serverOnlyDependencies).concat(clientOnlyDependencies).concat(_listSharedDependencies()));
   return clientDependencies;
 }
 
@@ -38,8 +39,14 @@ function listServerDependencies() {
   var packageManifest = require('../package.json');
   var allDependencies = Object.keys(packageManifest.dependencies);
   var clientOnlyDependencies = packageManifest.clientOnlyDependencies;
-  var serverDependencies = _.difference(allDependencies, clientOnlyDependencies);
+  var serverDependencies = _.difference(allDependencies, clientOnlyDependencies).concat(_listSharedDependencies());
   return serverDependencies;
+}
+
+// List shared dependencies
+function _listSharedDependencies() {
+  var packageManifest = require('../package.json');
+  return packageManifest.sharedDependencies;
 }
 
 module.exports.createBundler = createBundler;

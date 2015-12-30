@@ -5,11 +5,19 @@
   "repository": "git@gitlab.com:mael2210/Radiumng-front.git",
   "license": "SEE LICENSE IN License.md",
   "serverOnlyDependencies": [
-    "express"
+    "express",
+    "react-dom/server",
+    "history/lib/createMemoryHistory"
   ],
   "clientOnlyDependencies": [
     "jquery",
-    "nprogress"
+    "nprogress",
+    "history/lib/createBrowserHistory",
+    "history/lib/createHashHistory"
+  ],
+  "sharedDependencies": [
+    "material-ui/lib/dialog",
+    "material-ui/lib/flat-button"
   ],
   "devDependencies": {
     "babel": "latest",
@@ -41,8 +49,10 @@
     "gulp-util": "latest",
     "lodash": "latest",
     "merge-stream": "latest",
+    "minimatch": "^3.0.0",
     "mkdirp": "^0.5.1",
     "node-notifier": "^4.4.0",
+    "pathmodify": "^0.5.0",
     "require-dir": "latest",
     "resolve": "latest",
     "run-sequence": "latest",
@@ -56,14 +66,12 @@
   "dependencies": {
     "bluebird": "^3.1.1",
     "express": "latest",
-    "flux": "latest",
     "fs": "0.0.2",
-    "history": "1.13.x",
+    "history": "1.17.x",
     "html": "0.0.10",
     "intl-messageformat": "latest",
     "intl-relativeformat": "latest",
     "jquery": "^2.1.4",
-    "material-ui": "latest",
     "moment": "latest",
     "node-getopt": "^0.2.3",
     "nprogress": "^0.2.0",
@@ -80,8 +88,10 @@
     "redux-devtools": "latest",
     "redux-devtools-dock-monitor": "latest",
     "redux-devtools-log-monitor": "latest",
-    "redux-logger": "^2.3.1",
+    "redux-promise-middleware": "^2.3.1",
     "redux-router": "latest",
-    "redux-thunk": "^1.0.2"
+    "redux-thunk": "^1.0.2",
+    "material-ui": "0.13.x",
+    "lodash": "latest"
   }
 }

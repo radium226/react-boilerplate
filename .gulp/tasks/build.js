@@ -3,7 +3,7 @@ var runSequence = require('run-sequence');
 var util = require('gulp-util');
 var notifier = require('node-notifier');
 var path = require('path');
-var common = require('./common');
+var common = require('../common');
 
 var mkdirp = require('mkdirp')
 

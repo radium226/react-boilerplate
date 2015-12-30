@@ -1,5 +1,7 @@
 import NProgress from 'nprogress';
 
+const PROMISE_TIMEOUT = 3000;
+
 export function beginProgress() {
   return {
     type: 'BEGIN_PROGRESS'
@@ -21,10 +23,11 @@ export function withProgress(deferredAction) {
       payload: {
         ...action.payload,
         promise: action.payload.promise
-          .then(result => {
+          .timeout(PROMISE_TIMEOUT)
+          .finally(() => {
             dispatch(endProgress());
-            return result;
-          }),
+          })
+          //.timeout(PROMISE_TIMEOUT)
       }
     });
   };

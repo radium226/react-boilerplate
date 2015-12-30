@@ -9,7 +9,7 @@ var notify = require("gulp-notify");
 
 var browserSync = require("browser-sync").create()
 
-var common = require('./common.js');
+var common = require('../common.js');
 var path = require('path');
 
 var nodemon = require('gulp-nodemon');

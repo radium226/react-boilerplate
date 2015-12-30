@@ -13,10 +13,11 @@ class Html extends Component {
     const { initialState, historyStrategy } = this.props;
     return (
       <html className="no-js" lang="en">
-        <head>
+        <head>l
           <meta charSet="utf-8" />
           <title>Radium</title>
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" />
+          <link rel="icon" type="image/png" href="/images/cheese.png" />
         </head>
         <body>
           <div id="client" dangerouslySetInnerHTML={{ __html: this.props.body }} />

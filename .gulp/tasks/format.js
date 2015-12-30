@@ -7,7 +7,7 @@ var path = require('path');
 
 var callback = require('gulp-callback')
 
-var common = require('./common');
+var common = require('../common');
 
 var baseDir = './src'
 

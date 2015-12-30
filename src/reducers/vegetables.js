@@ -9,6 +9,12 @@ function vegetables(state = initialState, action) {
         ...state,
         vegetables: action.payload,
       };
+    case 'FETCH_VEGETABLES_REJECTED':
+      console.log(action);
+      return {
+        ...state,
+        error: action.error
+      };
     default:
       return state;
   }

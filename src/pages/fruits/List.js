@@ -7,6 +7,9 @@ import { fetchFruits } from '../../actions/fruits';
 import { fetchVegetables } from '../../actions/vegetables';
 import { beginProgress, endProgress } from '../../actions/progress';
 
+import Dialog from 'material-ui/lib/dialog';
+import FlatButton from 'material-ui/lib/flat-button';
+
 class List extends Component {
 
   static propTypes = {
@@ -18,6 +21,8 @@ class List extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = { dialogOpen: !!!props.vegetables.error };
   }
 
   componentDidMount() {
@@ -41,7 +46,13 @@ class List extends Component {
     dispatch(endProgress());
   }
 
+  doCloseDialog(event) {
+    console.log("WHATCHAAAAAAAAA");
+    this.setState({ dialogOpen: false });
+  }
+
   render() {
+    const { vegetables} = this.props;
     return (
       <div>
         <button onClick={ this.handleClick.bind(this) }>Fetch</button>
@@ -51,9 +62,30 @@ class List extends Component {
           { _.map(this.props.fruits.fruits, (fruit, index) => { return (<li key={ index }>{ fruit }</li>); }) }
         </ul>
         <hr />
-        <ul>
-          { _.map(this.props.vegetables.vegetables, (vegetable, index) => { return (<li key={ index }>{ vegetable }</li>); }) }
-        </ul>
+        {(() => {
+          console.log(vegetables);
+          if (!!vegetables.error) {
+            const dialogActions = [
+              <FlatButton
+                key="cancel"
+                label="Cancel"
+                secondary={true}
+                onClick={ event => { this.doCloseDialog(event) } } />
+            ];
+            return (
+              <Dialog
+                title="Dialog With Standard Actions"
+                actions={dialogActions}
+                open={ this.state.dialogOpen }>
+                There was an error, dude. Do you wanna retry?
+              </Dialog>
+            );
+          } else {
+            return (<ul>
+              { _.map(this.props.vegetables.vegetables, (vegetable, index) => { return (<li key={ index }>{ vegetable }</li>); }) }
+            </ul>);
+          }
+        })()}
         <p><Link to="/fruits/add">Ajouter</Link></p>
       </div>
     );
