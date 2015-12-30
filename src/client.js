@@ -15,9 +15,6 @@ $(document).ready(() => {
   const element = $('#client').get(0);
 
   const initialState = window.__INITIAL_STATE__;
-
-  console.log(initialState);
-
   const historyStrategy = window.__HISTORY_TYPE__;
 
   const routes = createRoutes();

@@ -4,7 +4,6 @@ const initialState = {
 };
 
 function fruits(state = initialState, action) {
-    console.log(' ---> ' + action);
     switch (action.type) {
     case 'FETCH_FRUITS_PENDING':
       return {

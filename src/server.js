@@ -17,7 +17,6 @@ const routes = createRoutes();
 const history = createHistory(true);
 const store = createStore();
 const initialState = store.getState();
-console.log(initialState);
 
 app.use(express.static('dist/public'));
 
@@ -34,7 +33,7 @@ app.get('/api/v1/fruits', (request, response) => {
 });
 
 app.get('/api/v1/vegetables', (request, response) => {
-  setTimeout(() => response.json(['Potato', 'BANANANANANAAA!!!']), 10000);
+  setTimeout(() => response.json(['Potato', 'BANANNANANAAA!!!']), 10000);
 });
 
 app.use((request, response, next) => {
@@ -49,6 +48,7 @@ app.use((request, response, next) => {
       }
     });
 });
+
 
   /*match({
     routes: routes, // eslint-disable-line object-shorthand

@@ -1,136 +1,88 @@
+
 var gulp = require('gulp');
 var util = require('gulp-util');
-
-var through = require('through2');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
 var globby = require('globby').sync;
-var notify = require("gulp-notify");
 
-var browserSync = require("browser-sync").create()
-
-var common = require('../common.js');
-var path = require('path');
-
+var browserSync = require("browser-sync").create();
 var nodemon = require('gulp-nodemon');
 
-var BROWSER_SYNC_RELOAD_DELAY = 500;
+var createBundler = require('../bundler.js').createBundler;
 
-function handleErrors() {
-  var args = Array.prototype.slice.call(arguments);
-  notify.onError({
-    title: "Compile Error",
-    message: "<%= error.message %>"
-  }).apply(this, args);
-  browserSync.notify("Compile Error!");
-  this.emit('end'); // Keep gulp from hanging on this task
-}
+gulp.task('watch:client', function(callback) {
+  var sources = globby(['src/**/*.js', '!src/server.js', '!src/render.js', '!src/server/**/*']);
+	var bundler = createBundler({
+    monitorChanges: true,
+    browserSync: browserSync,
+		// client.js
+		sources: sources,
+		target: 'dist/public/scripts/client.js',
+		sourceMaps: true,
+		// vendor.js
+		vendor: true,
+		vendorTarget: 'dist/public/scripts/vendor.js'
+	});
 
-// Watch for change on client.js file
-gulp.task('watch:client.js', function() {
-
-  // Find every JavaScript and TypeScript sources
-	var entries = globby(['src/**/*.js', '!src/server.js', '!src/server/**/*.js', '!src/render.js']);
-
-  // create the Browserify instance.
-  var bundler = common.createBundler({
-    entries: entries,
-    cache: {},
-    packageCache: {},
-    fullPaths: true,
-    debug: true
-  }, true);
-
-  // Exclude every client vendor depdendencies
-	common.listClientDependencies().forEach(function(dependency) {
-    bundler.external(dependency);
-  });
-
-  function bundle() {
-    return bundler.bundle()
-      .on('error', handleErrors)
-      .pipe(source('client.js'))
-      .pipe(buffer())
-      .pipe(gulp.dest('dist/public/scripts/'))
-      .pipe(browserSync.stream({ once: true }))
-      .pipe(notify({
-        title: 'Gulp',
-        message: 'Bundle updated',
-        icon: path.join(__dirname, 'analyevent.png')
-      }));
-  }
-
-  // Watch for change
+  counter = { count: 0 };
   bundler
-    .on('update', function() {
-      util.log("Bundle2! ");
-      bundle()
-    });
+    .bundle(function() {
+      if (counter.count == 0) {
+        callback();
+      } else {
+        util.log('Reload', util.colors.grey('#' + counter.count + ''));
+      }
+      counter.count++;
 
-  // Bundler everything
-	return bundle();
+      reload();
+    });
 });
 
-gulp.task('watch', ['watch:client.js', 'watch:server.js'], function() {
+gulp.task('watch:server', function(callback) {
+  var sources = globby(['src/**/*.js', '!src/client.js', '!src/render.js']);
+  var bundler = createBundler({
+    monitorChanges: true,
+    sources: sources,
+    target: 'dist/server.js',
+    vendor: false,
+    external: true
+  });
 
+  var counter = { count: 0 };
+
+  bundler
+    .bundle(function() {
+      if (counter.count == 0) {
+        callback();
+      } else {
+        util.log('Reload', util.colors.grey('#' + counter.count + ''));
+      }
+      counter.count++;
+    });
+})
+
+var pendingReload = null;
+function reload() {
+  if (pendingReload) {
+    util.log('Reload already pending for', util.colors.grey('BrowserSync'));
+    clearTimeout(pendingReload);
+  }
+
+  pendingReload = setTimeout(function() {
+    util.log('Reloading using', util.colors.grey('BrowserSync'));
+    browserSync.reload({
+      stream: false
+    });
+  }, 2500);
+}
+
+gulp.task('watch', ['watch:client', 'watch:server'], function(callback) {
   browserSync.init({
     proxy: 'http://localhost:3000',
     port: 4000,
   });
 
-  return nodemon({
+  nodemon({
     script: 'dist/server.js',
     watch: ['dist/server.js']
   })
-    .on('restart', function() {
-      setTimeout(function() {
-        browserSync.reload({
-          stream: false
-        });
-      }, BROWSER_SYNC_RELOAD_DELAY);
-    });
-})
-
-// Watch for change on server.js file
-gulp.task('watch:server.js', function() {
-
-  // Find every JavaScript and TypeScript sources
-	var entries = globby(['src/**/*.js', '!src/client.js', '!src/render.js']);
-
-  // create the Browserify instance.
-  var bundler = common.createBundler({
-    entries: entries,
-    cache: {},
-    packageCache: {},
-    fullPaths: true,
-    debug: true
-  }, true);
-
-  // Exclude every client vendor depdendencies
-	common.listServerDependencies().forEach(function(dependency) {
-    bundler.external(dependency);
-  });
-
-  function bundle() {
-    return bundler.bundle()
-      .on('error', handleErrors)
-      .pipe(source('server.js'))
-      .pipe(buffer())
-      .pipe(gulp.dest('dist/'))
-      .pipe(notify({
-        title: 'Gulp',
-        message: 'Server updated',
-        icon: path.join(__dirname, 'analyevent.png')
-      }));
-  }
-
-  // Watch for change
-  bundler
-    .on('update', function() {
-      bundle()
-    });
-
-  // Bundler everything
-	bundle();
-
+    .on('start', reload);
 });

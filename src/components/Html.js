@@ -13,7 +13,7 @@ class Html extends Component {
     const { initialState, historyStrategy } = this.props;
     return (
       <html className="no-js" lang="en">
-        <head>l
+        <head>
           <meta charSet="utf-8" />
           <title>Radium</title>
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" />
