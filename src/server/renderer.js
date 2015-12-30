@@ -31,7 +31,7 @@ class Renderer {
       location: location, // eslint-disable-line object-shorthand
     }, (err, redirectLocation, routingContextProps) => {
       if (redirectLocation) {
-        console.log("Error! " + err);
+        console.log('Error! ' + err);
       } else if (err) {
         deferred.reject(err);
       } else if (routingContextProps === null) {

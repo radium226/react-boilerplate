@@ -26,33 +26,33 @@ class List extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     dispatch(fetchFruits());
     dispatch(fetchVegetables());
   }
 
   handleClick(event) {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     dispatch(fetchFruits());
   }
 
   doBeginProgress() {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     dispatch(beginProgress());
   }
 
   doEndProgress() {
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     dispatch(endProgress());
   }
 
   doCloseDialog(event) {
-    console.log("WHATCHAAAAAAAAA");
+    console.log('WHATCHAAAAAAAAA');
     this.setState({ dialogOpen: false });
   }
 
   render() {
-    const { vegetables} = this.props;
+    const { vegetables } = this.props;
     return (
       <div>
         <button onClick={ this.handleClick.bind(this) }>Fetch</button>
@@ -70,7 +70,7 @@ class List extends Component {
                 key="cancel"
                 label="Cancel"
                 secondary={true}
-                onClick={ event => { this.doCloseDialog(event) } } />
+                onClick={ event => { this.doCloseDialog(event); } } />
             ];
             return (
               <Dialog

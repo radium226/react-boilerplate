@@ -40,7 +40,7 @@ app.use((request, response, next) => {
   const path = request.path;
   console.log('Serving ' + request.path);
   renderer.render(path)
-    .then(function(result) {
+    .then(function (result) {
       if (result.redirect) {
         response.redirect(301, result.redirect.pathname + result.redirect.search);
       } else {

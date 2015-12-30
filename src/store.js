@@ -4,7 +4,7 @@ import createReducer from './reducer';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 
-const c = compose(DevTools.instrument())(createReduxStore)
+const c = compose(DevTools.instrument())(createReduxStore);
 
 const promise = promiseMiddleware();
 

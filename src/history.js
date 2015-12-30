@@ -19,4 +19,4 @@ export default function createHistory(historyStrategy) {
     case HistoryStrategy.BROWSER:
       return createBrowserHistory();
   }
-};
+}

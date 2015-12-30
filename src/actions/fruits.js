@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import $ from 'jquery';
 import NProgress from 'nprogress';
-import { withProgress } from './progress'
+import { withProgress } from './progress';
 
 export function __fetchFruits() {
   const deferred = Promise.pending();
@@ -19,6 +19,6 @@ export function fetchFruits() {
       promise: __fetchFruits(),
     }
   }));
-};
+}
 
 //export fetchFruits; //{ withProgress(fetchFruits) as fetchFruits };
