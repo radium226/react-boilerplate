@@ -7,7 +7,7 @@ var path = require('path');
 
 var callback = require('gulp-callback')
 
-var common = require('../common');
+var notifier = require('../notifier');
 
 var baseDir = './src'
 
@@ -21,6 +21,6 @@ gulp.task('format', function() {
     .pipe(gulp.dest(baseDir))
     .pipe(eslint.failAfterError())
     .on('error', function() {
-      common.notify('There is formatting errors');
+      notifier.notify('There is formatting errors');
     })
 });

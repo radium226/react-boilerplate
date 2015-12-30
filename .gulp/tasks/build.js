@@ -3,7 +3,7 @@ var runSequence = require('run-sequence');
 var util = require('gulp-util');
 var notifier = require('node-notifier');
 var path = require('path');
-var common = require('../common');
+var notifier = require('../notifier');
 
 var mkdirp = require('mkdirp')
 
@@ -14,7 +14,7 @@ gulp.task('make-directories', function(callback) {
 
 gulp.task('build', function(callback) {
   runSequence('clean', 'make-directories', ['bundle', 'copy'], function() {
-    common.notify('Build is completed! ');
+    notifier.notify('Build is completed! ');
     callback();
   });
 });
